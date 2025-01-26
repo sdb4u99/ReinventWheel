@@ -23,7 +23,7 @@ class myVector{
 
         if( newCapacity > capacity){
             T* tmp = new T[newCapacity];
-            for (int i =0 ; i<= size ; i++){
+            for (unsigned int i =0 ; i< size ; i++){
                 tmp[i] = std::move(data[i]);    //why move
             }
             delete[]data;
@@ -66,7 +66,7 @@ int main()
     myVector<int> v3 = {1,2,3};  //init list braced
 
     auto printvInt = []( myVector<int>& v )  {
-        for (int i =0 ; i < v.get_size(); i++){
+        for (unsigned int i =0 ; i < v.get_size(); i++){
             std::cout << v[i] << " ";
         }
     };
