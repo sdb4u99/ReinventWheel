@@ -50,6 +50,43 @@ class myVector{
         }
     }
 
+    //copy const
+
+    myVector(const myVector& other ){
+        size = other.size;
+        capacity = other.capacity;
+
+        data = new T[capacity];
+        for (int i=0; i < size; ++i){
+            data[i] = other.data[i];
+        }
+    }
+
+    //move const 
+
+    myVector(myVector &&other){
+        size = other.size;
+        capacity = other.capacity;
+        data = other.data;
+        other.data = nullptr;
+    }
+
+    // copy assignment
+    myVector& operator=(const myVector& other){
+        if (this != &other){
+            size = other.size;
+            capacity = other.capacity;
+            
+            auto tmp = new T[capacity];
+            for (int i=0; i<size; ++i){
+                tmp[i] = other.data[i];
+            }
+            delete [] data;
+            data = tmp;
+        }
+        return *this;
+    }
+
     ~myVector(){
         delete []data;
     }
@@ -65,13 +102,17 @@ int main()
     v2.push_back(5);
     myVector<int> v3 = {1,2,3};  //init list braced
 
+    myVector<int> v4(v3);
     auto printvInt = []( myVector<int>& v )  {
         for (unsigned int i =0 ; i < v.get_size(); i++){
             std::cout << v[i] << " ";
         }
     };
-
-    printvInt(v3);
     std::cout << "\n====\n";
-    printvInt(v2);
+
+    printvInt(v1);
+    std::cout << "\n====\n";
+        v1 = v4;
+    printvInt(v1);
+    std::cout << "\n====\n";
 }
