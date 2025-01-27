@@ -20,11 +20,13 @@ class myVector{
         if (index< size){
             return data[index];
         }
+        std::cout << "out of bounds\n";
+        return -1;
     }
 
     void clear(){
         delete[]data;
-        size =0
+        size =0;
         capacity=0;
     }
 
