@@ -80,6 +80,7 @@ class myVector{
             data = other.data;
             other.size=0;
             other.capacity=0;
+            other.data=nullptr;
         }
         return *this;
     }
@@ -121,6 +122,7 @@ int main()
         for (unsigned int i =0 ; i < v.get_size(); i++){
             std::cout << v[i] << " ";
         }
+        std::cout << "\n===\n";
     };
     std::cout << "\n====\n";
 
@@ -134,5 +136,10 @@ int main()
     printvInt("v1 after move", v1);
     std::cout << "\n====\n";
     printvInt("v5", v5);
+
+    v1 = std::move(v5);
+    printvInt("v1 after move = with v5\n", v1);
+    printvInt("v5 after move ", v5);
+
 
 }
