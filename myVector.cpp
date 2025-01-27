@@ -10,13 +10,20 @@ class myVector{
     unsigned int capacity;
 
     public:
-    unsigned int get_size() {return size;} 
+    unsigned int get_size() {return size;}
+    unsigned int get_capacity() {return capacity;} 
     myVector():data (nullptr) , size(0), capacity(0) {};
     
     myVector(int msize):data (new T[msize]) , size(0), capacity(msize) {};
 
     T operator[](int index){
         return data[index];
+    }
+
+    void clear(){
+        delete[]data;
+        size =0
+        capacity=0;
     }
 
     void reserve (unsigned int newCapacity){
