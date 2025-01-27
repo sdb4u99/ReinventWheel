@@ -17,7 +17,9 @@ class myVector{
     myVector(int msize):data (new T[msize]) , size(0), capacity(msize) {};
 
     T operator[](int index){
-        return data[index];
+        if (index< size){
+            return data[index];
+        }
     }
 
     void clear(){
