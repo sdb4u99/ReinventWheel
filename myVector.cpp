@@ -63,12 +63,25 @@ class myVector{
     }
 
     //move const 
-
     myVector(myVector &&other){
         size = other.size;
         capacity = other.capacity;
         data = other.data;
         other.data = nullptr;
+        other.size = other.capacity =0 ;
+    }
+
+    //move assignment operator
+    myVector& operator= (myVector&& other){
+        if(this != &other){
+            size = other.size;
+            capacity = other.capacity;
+            delete[] data;
+            data = other.data;
+            other.size=0;
+            other.capacity=0;
+        }
+        return *this;
     }
 
     // copy assignment
@@ -103,16 +116,23 @@ int main()
     myVector<int> v3 = {1,2,3};  //init list braced
 
     myVector<int> v4(v3);
-    auto printvInt = []( myVector<int>& v )  {
+    auto printvInt = []( std::string vName, myVector<int>& v )  {
+        std::cout << vName << std::endl;
         for (unsigned int i =0 ; i < v.get_size(); i++){
             std::cout << v[i] << " ";
         }
     };
     std::cout << "\n====\n";
 
-    printvInt(v1);
+    printvInt("v1", v1);
     std::cout << "\n====\n";
         v1 = v4;
-    printvInt(v1);
+    printvInt("v1 bef move", v1);
     std::cout << "\n====\n";
+    myVector<int> v5 = std::move(v1);
+    std::cout << "\n====\n";
+    printvInt("v1 after move", v1);
+    std::cout << "\n====\n";
+    printvInt("v5", v5);
+
 }
