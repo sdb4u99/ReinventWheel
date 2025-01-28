@@ -17,14 +17,16 @@ class myVector{
     myVector(int msize):data (new T[msize]) , size(0), capacity(msize) {};
 
     T operator[](int index){
-        if (index< size){return data[index];
-
+        if (index< size){
+            return data[index];
         }
+        throw std::out_of_range("underflow");
     }
 
     void clear(){
         delete[]data;
-        size =0
+        data = nullptr;
+        size =0;
         capacity=0;
     }
 
@@ -39,7 +41,7 @@ class myVector{
             data = tmp;
         }
         else{
-            std::cout << "underflow\n" ;
+            throw std::out_of_range("underflow");
         }
     }
 
@@ -77,15 +79,16 @@ class myVector{
         capacity = other.capacity;
         data = other.data;
         other.data = nullptr;
-        other.size = other.capacity =0 ;
+        other.size = 0;
+        other.capacity =0 ;
     }
 
     //move assignment operator
     myVector& operator= (myVector&& other){
         if(this != &other){
+            delete[] data;
             size = other.size;
             capacity = other.capacity;
-            delete[] data;
             data = other.data;
             other.size=0;
             other.capacity=0;
@@ -120,6 +123,7 @@ class myVector{
 int main()
 {
     std::cout << "hello\n" ;
+    try {
     myVector<int> v1;// default const
     myVector<int> v2(6); //parametrized const
     v2.push_back(5);
@@ -149,6 +153,13 @@ int main()
     v1 = std::move(v5);
     printvInt("v1 after move = with v5\n", v1);
     printvInt("v5 after move ", v5);
+
+    std::cout << v5[12];
+    }
+    catch (...)
+    {
+        std::cout << "caught exception" ;
+    }
 
 
 }
