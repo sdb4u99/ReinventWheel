@@ -17,16 +17,14 @@ class myVector{
     myVector(int msize):data (new T[msize]) , size(0), capacity(msize) {};
 
     T operator[](int index){
-        if (index< size){
-            return data[index];
+        if (index< size){return data[index];
+
         }
-        std::cout << "out of bounds\n";
-        return -1;
     }
 
     void clear(){
         delete[]data;
-        size =0;
+        size =0
         capacity=0;
     }
 
