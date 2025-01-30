@@ -10,6 +10,8 @@ class myString{
 
     public:
 
+    friend ostream&  operator<< (ostream& out, myString & str);
+
     myString():res(nullptr),size(0){
     }
 
@@ -18,11 +20,39 @@ class myString{
         strcpy(res, s);
     }
 
+    myString& operator= (const myString& other){
+
+        if(this != &other){
+
+            delete[]res;
+            size = other.size;
+            res = new char[size+1];
+            strcpy(res,other.res);
+        }
+        return *this;
+
+    }
+
+    ~myString(){
+        delete[]res;
+        res=nullptr;
+        size =0;
+    }
+
 
 };
 
+ ostream&  operator<< (ostream& out,  myString & str){
+    out << str.res << endl;
+    return out;
+ }
+
 int main(){
-    cout << "Hi" << endl;
-    myString s1;
-    myString s2("Hi");
+    myString s1;   //default const
+    myString s2("Hi hello");   // copy const
+    s1 = s2;
+
+    cout << s2;     //overloaded ostream
+    cout << s1;
+
 }
