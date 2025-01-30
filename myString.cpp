@@ -43,7 +43,10 @@ class myString{
 };
 
  ostream&  operator<< (ostream& out,  myString & str){
+
+    if (str.res){
     out << str.res << endl;
+    }
     return out;
  }
 
